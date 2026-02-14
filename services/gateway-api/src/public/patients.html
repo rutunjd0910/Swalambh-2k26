@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FHIR-Flow Patients</title>
+    <link rel="stylesheet" href="patients.css" />
+    <link rel="stylesheet" href="app-shell.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="brand">FHIR-Flow</div>
+      <div class="nav-buttons">
+        <a class="nav-button" href="/">Pipeline</a>
+        <a class="nav-button" href="/patients.html">Patient Profiles</a>
+        <a class="nav-button" href="/uploads.html">Upload Center</a>
+        <a class="nav-button" href="/resources.html">FHIR Resources</a>
+        <a class="nav-button" href="/health.html">System Health</a>
+      </div>
+      <h1>Patient Profiles</h1>
+      <p>Stored structured records with update logs.</p>
+    </header>
+
+    <section class="app-shell">
+      <div id="statsBar" class="stats-bar"></div>
+    </section>
+
+    <main class="panel">
+      <section class="list-card">
+        <div class="card-head">
+          <h2>Patients</h2>
+          <span class="pill">Live Store</span>
+        </div>
+        <div id="patientList" class="patient-list"></div>
+      </section>
+
+      <section class="detail-card">
+        <div class="card-head">
+          <h2>Profile</h2>
+          <span class="pill alt">FHIR</span>
+        </div>
+        <div id="profileSummary" class="summary">Select a patient to view details.</div>
+        <div class="split">
+          <div>
+            <h3>Latest Resources</h3>
+            <pre id="resourceJson">{}</pre>
+          </div>
+          <div>
+            <h3>Update Log</h3>
+            <ul id="logList" class="log-list"></ul>
+          </div>
+        </div>
+        <div class="uploads">
+          <div class="uploads-head">
+            <h3>Uploaded Images</h3>
+            <button id="clearImagesBtn">Clear Images</button>
+          </div>
+          <div id="imageList" class="image-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="patients.js"></script>
+    <script src="app-shell.js"></script>
+  </body>
+</html>

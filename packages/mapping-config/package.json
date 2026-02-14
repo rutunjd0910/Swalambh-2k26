@@ -1,0 +1,5 @@
+{
+  "name": "@fhir-flow/mapping-config",
+  "version": "0.1.0",
+  "main": "fhir-r4.json"
+}

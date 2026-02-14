@@ -1,0 +1,50 @@
+{
+  "name": "fhir-flow",
+  "version": "1.0.0",
+  "description": "Medical document processing system that converts unstructured clinical documents into FHIR R4 JSON resources",
+  "private": true,
+  "author": "FHIR Flow Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/fhir-flow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/fhir-flow/issues"
+  },
+  "homepage": "https://github.com/yourusername/fhir-flow#readme",
+  "keywords": [
+    "fhir",
+    "healthcare",
+    "medical-records",
+    "ocr",
+    "nlp",
+    "hl7",
+    "clinical-documents",
+    "patient-data",
+    "microservices",
+    "hackathon"
+  ],
+  "workspaces": [
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start:gateway": "npm --workspace services/gateway-api start",
+    "start:ingestion": "npm --workspace services/ingestion-service start",
+    "start:ocr": "npm --workspace services/ocr-service start",
+    "start:nlp": "npm --workspace services/nlp-service start",
+    "start:validation": "npm --workspace services/validation-service start",
+    "start:mapping": "npm --workspace services/mapping-service start",
+    "start:all": "concurrently \"npm:start:ingestion\" \"npm:start:ocr\" \"npm:start:nlp\" \"npm:start:validation\" \"npm:start:mapping\" \"npm:start:gateway\"",
+    "test": "node test-suite.js",
+    "verify": "node verify-setup.js"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

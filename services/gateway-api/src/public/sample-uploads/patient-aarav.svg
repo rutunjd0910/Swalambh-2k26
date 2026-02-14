@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+  <rect width="800" height="600" fill="#fef6ec" />
+  <text x="40" y="80" font-size="32" font-family="Arial" fill="#1f6f8b">Discharge Summary</text>
+  <text x="40" y="140" font-size="24" font-family="Arial" fill="#333">Patient: Aarav Shah</text>
+  <text x="40" y="180" font-size="22" font-family="Arial" fill="#333">Age: 34</text>
+  <text x="40" y="220" font-size="22" font-family="Arial" fill="#333">Gender: male</text>
+  <text x="40" y="260" font-size="22" font-family="Arial" fill="#333">BP: 118/76 mmHg</text>
+  <text x="40" y="300" font-size="22" font-family="Arial" fill="#333">Lab: Hemoglobin 14.2 g/dL</text>
+  <text x="40" y="360" font-size="18" font-family="Arial" fill="#666">Apollo Clinic, Mumbai</text>
+</svg>

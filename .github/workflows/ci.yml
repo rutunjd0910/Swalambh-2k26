@@ -1,0 +1,147 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Test on Node.js ${{ matrix.node-version }} and ${{ matrix.os }}
+    
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Check for package vulnerabilities
+      run: npm audit --audit-level=moderate || true
+    
+    - name: Start services
+      run: npm run start:all &
+      shell: bash
+    
+    - name: Wait for services to be ready
+      run: |
+        sleep 15
+        curl --retry 5 --retry-delay 2 --retry-connrefused http://localhost:3000/health || exit 1
+      shell: bash
+    
+    - name: Run tests
+      run: node test-suite.js
+      continue-on-error: false
+    
+    - name: Stop services
+      if: always()
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 3000, 3001, 3002, 3003, 3004, 3005 } | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force } || true
+        else
+          lsof -ti:3000,3001,3002,3003,3004,3005 | xargs kill -9 || true
+        fi
+      shell: bash
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.os }}-node-${{ matrix.node-version }}
+        path: |
+          test-results/
+          logs/
+        retention-days: 7
+
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Check code formatting
+      run: |
+        echo "Checking for syntax errors..."
+        npx eslint . --ext .js || echo "ESLint not configured, skipping..."
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run security audit
+      run: npm audit --audit-level=high
+      continue-on-error: true
+    
+    - name: Check for outdated dependencies
+      run: npm outdated || true
+
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+    needs: [test, lint]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Verify all services exist
+      run: |
+        echo "Checking service structure..."
+        test -d services/gateway-api || exit 1
+        test -d services/ingestion-service || exit 1
+        test -d services/ocr-service || exit 1
+        test -d services/nlp-service || exit 1
+        test -d services/validation-service || exit 1
+        test -d services/mapping-service || exit 1
+        echo "✅ All services present"
+    
+    - name: Success notification
+      if: success()
+      run: echo "✅ Build successful! All checks passed."

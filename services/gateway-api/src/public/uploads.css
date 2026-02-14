@@ -1,0 +1,97 @@
+:root {
+  --ink: #0b0b0b;
+  --accent: #e05935;
+  --cool: #1f6f8b;
+  --mint: #9ed9c0;
+  --shadow: rgba(11, 11, 11, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at top left, #fdf6ec, #efe6d8 55%, #e3d7c7);
+  min-height: 100vh;
+}
+
+.hero {
+  padding: 40px 10vw 20px;
+}
+
+.brand {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8c2b16;
+  margin-bottom: 12px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.nav-button {
+  text-decoration: none;
+  color: #ffffff;
+  background: var(--cool);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.panel {
+  padding: 0 10vw 60px;
+}
+
+.list-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 24px 60px var(--shadow);
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.upload-list {
+  display: grid;
+  gap: 12px;
+}
+
+.upload-item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.upload-item h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.upload-meta {
+  font-size: 0.85rem;
+  color: #4d3b2d;
+}

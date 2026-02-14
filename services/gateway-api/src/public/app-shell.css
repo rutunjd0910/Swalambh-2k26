@@ -1,0 +1,22 @@
+.app-shell {
+  padding: 0 10vw 10px;
+}
+
+.app-shell .stats-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.stat-chip {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  box-shadow: 0 10px 24px rgba(11, 11, 11, 0.12);
+}
+
+.nav-button.active {
+  background: #8c2b16;
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FHIR-Flow Upload Center</title>
+    <link rel="stylesheet" href="uploads.css" />
+    <link rel="stylesheet" href="app-shell.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="brand">FHIR-Flow</div>
+      <div class="nav-buttons">
+        <a class="nav-button" href="/">Pipeline</a>
+        <a class="nav-button" href="/patients.html">Patient Profiles</a>
+        <a class="nav-button" href="/uploads.html">Upload Center</a>
+        <a class="nav-button" href="/resources.html">FHIR Resources</a>
+        <a class="nav-button" href="/health.html">System Health</a>
+      </div>
+      <h1>Upload Center</h1>
+      <p>See every document processed by the pipeline.</p>
+    </header>
+
+    <section class="app-shell">
+      <div id="statsBar" class="stats-bar"></div>
+    </section>
+
+    <main class="panel">
+      <section class="list-card">
+        <div class="card-head">
+          <h2>Recent Uploads</h2>
+          <button id="refreshBtn">Refresh</button>
+        </div>
+        <div id="uploadList" class="upload-list"></div>
+      </section>
+    </main>
+
+    <script src="uploads.js"></script>
+    <script src="app-shell.js"></script>
+  </body>
+</html>

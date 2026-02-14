@@ -1,0 +1,16 @@
+{
+  "fhirVersion": "R4",
+  "resources": {
+    "Patient": {
+      "idField": "patientId",
+      "nameField": "patientName",
+      "genderField": "gender",
+      "birthDateField": "birthDate"
+    },
+    "Observation": {
+      "codeField": "testName",
+      "valueField": "value",
+      "unitField": "unit"
+    }
+  }
+}
